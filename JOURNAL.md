@@ -17,3 +17,18 @@ Branch name: feat/86-rate-limit-headers
 Setup confirmation: [ ] App runs locally at localhost:5173
 
 Cohort ledger: [x] Issue added to cohort ledger
+
+
+
+## Week 8 — Reproduction & solution planning
+
+**Reproduction commit link:** 
+
+**Reproduction summary:**
+I reproduced Issue #86 by running the PathReview API locally and sending a curl -i http://localhost:8000/ request. The response returned 200 OK and included the existing X-Request-ID header but it did not include either X-RateLimit-Limit or X-RateLimit-Remaining. This confirms that rate limit information is not currently exposed to API clients.
+
+**PLAN.md link:** 
+
+**Blockers or open questions:**
+I still need to confirm where the existing rate limiter is called and which middleware or response layer should add the rate-limit headers.
+

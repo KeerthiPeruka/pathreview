@@ -34,3 +34,66 @@ https://github.com/KeerthiPeruka/pathreview/blob/feat/86-rate-limit-headers/PLAN
 **Blockers or open questions:**
 I still need to confirm where the existing rate limiter is called and which middleware or response layer should add the rate-limit headers.
 
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:**
+I added rate-limit middleware that adds X-RateLimit-Limit and X-RateLimit-Remaining to API responses. I also added tests to check the headers and the 429 response when the rate limit is exceeded.
+
+**Next steps:**
+I need to finish my final checks, open a draft PR, get feedback, and submit the final PR.
+
+**Blockers:**
+The project already has some test and lint errors that are unrelated to my changes. My new tests pass and the files I changed pass the lint check.
+---
+
+### Check-in 2 (end of week)
+
+**PR link:** 
+https://github.com/ascherj/pathreview/pull/1028
+
+**Branch:** 
+feat/86-rate-limit-headers
+
+**What you built:**
+I added rate-limit headers to API responses so clients can see their request limit and how many requests they have remaining. Requests that go over the limit return a 429 response.
+
+**Tests added or updated:**
+I added tests/unit/test_rate_limit_middleware.py. The tests check that normal responses include the rate-limit headers and that requests over the limit return a 429 response with the correct headers.
+
+**Self-review confirmation:** [x] make check passes  [x] make test-unit passes
+
+**Draft PR feedback received from:** 
+none
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [x] No — still awaiting review
+
+**Summary of feedback:**
+No review came in yet.
+
+**How you responded:**
+
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+Understanding how the existing rate limiter connected to the rest of the API was harder than I expected. I had to trace safety/rate_limiter.py, the middleware files, and api/main.py before deciding where to add the rate-limit headers.
+
+**What did you learn about working in a large codebase?**
+I learned that it is important to understand existing code before making changes. Looking at RequestIDMiddleware helped me understand how PathReview adds headers to responses and gave me a pattern to follow for my rate-limit middleware.
+
+**How did AI tools help — and where did they fall short?**
+AI tools helped me analyze existing functions in the codebase and understand how they worked before making changes. For example, I used AI to examine check_rate_limit() and RequestIDMiddleware to understand how the remaining request count was calculated and how response headers were already being added. AI was useful for explaining these existing patterns and helping me plan my implementation, but I still had to test the changes locally, debug setup issues, and verify the final behavior with curl and unit tests.
+
+**What would you do differently if you started over?**
+If I started over, I would spend more time analyzing the existing code and tests before planning my solution. This would help me understand the project’s existing patterns earlier and make it easier to decide how my changes should fit into the codebase.
+
+**What are you most proud of from this module?**
+I am most proud that I was able to work through an unfamiliar codebase and implement the rate-limit headers successfully. I also added tests for the new middleware and confirmed that the headers appeared correctly and the remaining request count decreased as requests were made.

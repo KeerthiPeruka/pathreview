@@ -23,11 +23,13 @@ Cohort ledger: [x] Issue added to cohort ledger
 ## Week 8 — Reproduction & solution planning
 
 **Reproduction commit link:** 
+https://github.com/KeerthiPeruka/pathreview/commit/bba9f6123ea354734d2bd9c5afdfbdd9fe630d04
 
 **Reproduction summary:**
 I reproduced Issue #86 by running the PathReview API locally and sending a curl -i http://localhost:8000/ request. The response returned 200 OK and included the existing X-Request-ID header but it did not include either X-RateLimit-Limit or X-RateLimit-Remaining. This confirms that rate limit information is not currently exposed to API clients.
 
 **PLAN.md link:** 
+https://github.com/KeerthiPeruka/pathreview/blob/feat/86-rate-limit-headers/PLAN.md 
 
 **Blockers or open questions:**
 I still need to confirm where the existing rate limiter is called and which middleware or response layer should add the rate-limit headers.
